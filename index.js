@@ -29,15 +29,15 @@ app.use("/api/user-create", async (req, res) => {
   res.json({ message: "bulk user create success" });
 });
 
-// app.use(express.static(path.join(__dirname, "dist")));
-
-// app.use("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
+app.use(express.static(path.join(__dirname, "dist")));
 
 app.use("*", (req, res) => {
-  res.status(404).json({ message: "No resource found" });
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
+
+// app.use("*", (req, res) => {
+//   res.status(404).json({ message: "No resource found" });
+// });
 
 app.use((err, req, res, next) => {
   console.log(err);
