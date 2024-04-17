@@ -6,6 +6,7 @@ const { app, server } = require("./socket/socket");
 const User = require("./models/User");
 const { userProtected } = require("./middlewares/protected");
 require("dotenv").config({ path: "./.env" });
+const path = require("path");
 
 mongoose.connect(process.env.MONGO_URL);
 app.use(express.json());
