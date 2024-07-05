@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const Chat = require("../models/Chat");
 const Message = require("../models/Message");
 const { upload } = require("../utils/upload");
+const { io } = require("../socket/socket");
 
 exports.sendMessage = asyncHandler(async (req, res) => {
   upload(req, res, async (err) => {
@@ -51,6 +52,12 @@ exports.sendMessage = asyncHandler(async (req, res) => {
           image,
         });
       }
+    }
+    if (x && x.isGroup) {
+      io.to(`${x._id}`).emit("send-response", x._id);
+    } else {
+      io.to(reciver).emit("send-response", userId);
+      io.to(userId).emit("send-response", userId);
     }
     res.status(201).json({ message: "Message Send Success" });
   });
