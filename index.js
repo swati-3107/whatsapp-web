@@ -13,8 +13,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    // origin: "https://swati-portfolio.onrender.com",
-    origin: "http://localhost:5173",
+    origin: "https://swati-portfolio.onrender.com",
+    // origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -30,11 +30,11 @@ app.use("/api/user-create", async (req, res) => {
   res.json({ message: "bulk user create success" });
 });
 
-// app.use(express.static(path.join(__dirname, "dist")));
+app.use(express.static(path.join(__dirname, "dist")));
 
-// app.use("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "dist", "index.html"));
-// });
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
+});
 
 app.use("*", (req, res) => {
   res.status(404).json({ message: "No resource found" });
